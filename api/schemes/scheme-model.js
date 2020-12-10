@@ -14,5 +14,12 @@ module.exports = {
             .select('s.id', 's.step_number', 'sc.scheme_name', 's.instructions')
             .where('s.scheme_id', id)
             .orderBy('s.step_number');
+    },
+    add(scheme){
+        return db('schemes')
+        .insert(scheme)
+        .then(ids => {
+            return this.findById(ids[0]);
+        })
     }
 }
