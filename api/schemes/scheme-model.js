@@ -15,11 +15,21 @@ module.exports = {
             .where('s.scheme_id', id)
             .orderBy('s.step_number');
     },
-    add(scheme){
+    add(scheme) {
         return db('schemes')
-        .insert(scheme)
-        .then(ids => {
-            return this.findById(ids[0]);
-        })
-    }
+            .insert(scheme)
+            .then(ids => {
+                return findById(ids[0]);
+            })
+    },
+    update(changes, id) {
+        return db('schemes')
+            .update(changes)
+            .where({ id })
+    },
+    remove(id){
+        return db('schemes')
+        .where({id})
+        .del()
+    }  
 }
